@@ -78,7 +78,7 @@ public class RayTracer {
 		}
 	}
 	private Color getPixel(int row, int column,int AArow,int AAcolumn){//this method takes in the co-ordinates for one pixel, renders it, and then returns it.
-		 double red, green, blue;
+		double red, green, blue;
 		double dist,lightAngle,lightStrength;
 		Color curcolor = new Color(0,0,0);
 		Thing thing=null;
