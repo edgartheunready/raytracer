@@ -1,0 +1,75 @@
+		
+		Sphere center 3  -1  10 radius 1.8 Color .196 .588 .196 Color .039 .039 .039
+
+		Sphere center -3  2   10  radius 1.8   Color .2   .2 .588  Color  .039 .039 .039
+ 
+		Sphere center  0  3    6  radius 1.5   Color 1 .588   .019  Color 1 1 1 
+
+		Sphere center 25  -2  55 radius 3    Color .99 .749 .019  Color 1 1 1  
+
+		Sphere center -2.5  -5  13 radius 1.2  Color .796 .99 .019  Color 1 1 1 
+ 
+		Sphere center -8  -2  16  radius  2    Color  .6 .99 .019  Color 1 1 1  
+
+		Sphere center 10  -1  28 radius  4  Color  .301 .98 .019   Color 1 1 1  
+
+		Sphere center 4  -5  24  radius  4    Color .019 .98 .074   Color 1 1 1  
+
+		Sphere center -6  5  9   radius 3   Color  .019   1 .4  Color 1 1 1  
+
+		Sphere center 25  0  37 radius 3    Color  .019 .576 1  Color 1 1 1  
+
+		Sphere center -15  -5  48  radius  1.2  Color .019 .274 1  Color 1 1 1  
+
+		Sphere center 2  3  59  radius  2   Color  .019 .019 1  Color 1 1 1 
+ 
+		Sphere center 5  -5  23   radius 4   Color  .423 .019 1  Color 1 1 1  
+
+		Sphere center 2  -7  31  radius  4  Color .623 .019 1   Color  1 1 1  
+
+		Sphere center 10  8  41 radius  3   Color .89 .019 .97  Color 1 1 1  
+
+		 Sphere center -5   17  32 radius  3   Color .95 .019 .694  Color 1 1 1  
+
+		 Sphere center -2.5  -2  12  radius   1.2    Color 1 .019 .349  Color  1 1 1 
+
+		 Sphere center 5  6  36  radius   2    Color .098  .392  .098  Color  1 1 1 
+
+		 Sphere center -10  0  12  radius   4    Color  .133  .392   .254  Color 1 1 1 
+
+		 Sphere center 1  19  42  radius    4   Color .309  .501  .298  Color  1 1 1 
+
+		 Sphere center 2  7  42  radius  3    Color  .501 1   .196  Color  1 1 1 
+
+		 Sphere center 11  0  32  radius   3  Color  .078  .294  .156  Color  1 1 1 
+
+		 Sphere center 22  -5  12  radius   1.2  Color .95  .95   .92  Color  1 1 1 
+
+		 Sphere center 29  8  5    radius  2   Color  .098  .396  .098  Color  1 1 1 
+
+		 Sphere center -2  4  34  radius   4  Color .122 .133 .144  Color  1 1 1 
+
+		 Sphere center 12 -4  19  radius  4 Color .784 .784 .784  Color 1 1 1 
+
+		 Sphere center -6  0  32     radius 3  Color  .784  .784 .784  Color  1 1 1 
+
+		 Sphere center 25  -5  26  radius   3  Color  .084  .294  .156  Color  1 1 1 
+
+		 Sphere center -25  -5  29   radius   1.2  new Color .93 .93 .93  Color  1 1 1 
+
+		 Sphere center -17  0  15  radius  2   Color  .001 .567 1  Color  1 1 1 
+
+		Sphere center  0  0  17  radius  2   Color  .006 .299 .686  Color  1 1 1 
+
+		
+		 Wall width -20 Color .087 .087 .087  Color  .392 .392 .784  Color  1 1 1 
+		  Wall  width  20  Color .087 .087 .087  Color  .392 .392 .784 Color  1 1 1  
+		
+		 Floor height  -10 Color  .843 .419 .009  Color .75 .78 .78  Color  1 1 1 
+		 Floor height 20 Color  .156 .580 1  Color .039 .039 .039  Color  1 1 1 
+		
+		 Sky 
+		
+	   light center -8 10 30 radius 1 
+		 light center  0 7 -9 radius 1 
+		  light   center 7 -5  17 radius 1 

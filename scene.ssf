@@ -1,0 +1,32 @@
+Sky
+
+Sphere
+center 1.4 -1.25 10
+radius .75
+color .545 0 0
+specular .6 .2 .2
+
+Sphere
+center -1.5 -.25 10
+radius .75
+color 0 0 0
+specular 1 1 1
+
+Floor
+height -2
+color1 .545 .27 .0745
+color2 1 .92 .8
+specular .02 .02 .02
+
+Light
+center -1.5 2.5 .5
+radius .25
+
+Light
+center 1.5 2.5 .5
+radius .25
+
+Light
+center 0 3.5 .5
+radius .25
+
