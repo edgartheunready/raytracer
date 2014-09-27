@@ -109,7 +109,7 @@ public class RayTracer {
 
 	public  void print(){//writes out my byte array to a file.
 		try{
-			Thread.currentThread().sleep(1000);//helps to let the other threads finish what they are doing. Sometimes a black line will show up at the bottom of the image--this is espically probable with larger images. If there is ever a black line at the end of the image simply put a larger number into the sleep method call. 
+			Thread.sleep(1000);//helps to let the other threads finish what they are doing. Sometimes a black line will show up at the bottom of the image--this is espically probable with larger images. If there is ever a black line at the end of the image simply put a larger number into the sleep method call. 
 			PrintStream imageOut = new PrintStream(filename+".ppm");
 			imageOut.print("P6 "+ imageWidth+" "+imageHeight+" 255\n");
 			imageOut.write(image, 0, image.length);
