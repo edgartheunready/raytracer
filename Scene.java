@@ -95,12 +95,13 @@ public class Scene {
 		
 		
 		String SCenter="", SRadius="",SColor="",floorHeight="",floorWidth="",color1="",color2="",specular="";
-		double temp=0,xp1=0,yp1=0,zp1=0,r1=0,g1=0,b1=0,r2=0,g2=0,b2=0,rS=0,bS=0,gS=0,rad=0,floorY=0,floorX=0;
+		double temp=0,pointX=0,pointY=0,pointZ=0,red=0,green=0,blue=0,redAlt=0,greenAlt=0,blueAlt=0,rS=0,bS=0,gS=0,rad=0,floorY=0,floorX=0;
 		int cnt=0;
 		String ts;
 		try{
 			Scanner s = new Scanner(new FileInputStream(filename));
-			while(s.hasNext()){cnt++;
+			while(s.hasNext()){
+				cnt++;
 				
 				ts=s.next();
 				if(ts.equalsIgnoreCase("sky")){
@@ -110,9 +111,9 @@ public class Scene {
 					if(s.hasNext()){
 						SCenter=s.next();
 						if(SCenter.equalsIgnoreCase("center")){
-							xp1=s.nextDouble();
-							yp1=s.nextDouble();
-							zp1=s.nextDouble();
+							pointX=s.nextDouble();
+							pointY=s.nextDouble();
+							pointZ=s.nextDouble();
 						}
 					}
 					if(s.hasNext()){
@@ -124,9 +125,9 @@ public class Scene {
 					if(s.hasNext()){
 						SColor=s.next();
 						if(SColor.equalsIgnoreCase("color")||SColor.equalsIgnoreCase("color1")){
-							r1=s.nextDouble();
-							g1=s.nextDouble();
-							b1=s.nextDouble();
+							red=s.nextDouble();
+							green=s.nextDouble();
+							blue=s.nextDouble();
 
 						}
 					}
@@ -139,7 +140,7 @@ public class Scene {
 
 						}
 					}
-					thing.add(new Sphere(new Point(xp1, yp1, zp1), rad, new Color(r1,g1,b1),new Color(rS,gS,bS)));//note to self, it seems that my color constructor that takes doubles isn't working correctly
+					thing.add(new Sphere(new Point(pointX, pointY, pointZ), rad, new Color(red,green,blue),new Color(rS,gS,bS)));//note to self, it seems that my color constructor that takes doubles isn't working correctly
 				   // editColors();
 				}
 				if(ts.equalsIgnoreCase("wall")){
@@ -153,18 +154,18 @@ public class Scene {
 					if(s.hasNext()){
 						color1=s.next();
 						if(color1.equalsIgnoreCase("color1")||color1.equalsIgnoreCase("color")){
-							r1=s.nextDouble();
-							g1=s.nextDouble();
-							b1=s.nextDouble();
+							red=s.nextDouble();
+							green=s.nextDouble();
+							blue=s.nextDouble();
 
 						}
 					}
 					if(s.hasNext()){
 						color2=s.next();
 						if(color2.equalsIgnoreCase("color2")||color2.equalsIgnoreCase("color")){
-							r2=s.nextDouble();
-							g2=s.nextDouble();
-							b2=s.nextDouble();
+							redAlt=s.nextDouble();
+							greenAlt=s.nextDouble();
+							blueAlt=s.nextDouble();
 
 						}
 					}
@@ -177,7 +178,7 @@ public class Scene {
 
 						}
 					}
-					thing.add(new Wall(new Color(r1,g1,b1),new Color (r2,g2,b2),floorX,new Color(rS,gS,bS)));
+					thing.add(new Wall(new Color(red,green,blue),new Color (redAlt,greenAlt,blueAlt),floorX,new Color(rS,gS,bS)));
 				    //editColors();
 				}
 				if(ts.equalsIgnoreCase("floor")){
@@ -191,18 +192,18 @@ public class Scene {
 					if(s.hasNext()){
 						color1=s.next();
 						if(color1.equalsIgnoreCase("color1")||color1.equalsIgnoreCase("color")){
-							r1=s.nextDouble();
-							g1=s.nextDouble();
-							b1=s.nextDouble();
+							red=s.nextDouble();
+							green=s.nextDouble();
+							blue=s.nextDouble();
 
 						}
 					}
 					if(s.hasNext()){
 						color2=s.next();
 						if(color2.equalsIgnoreCase("color2")||color2.equalsIgnoreCase("color")){
-							r2=s.nextDouble();
-							g2=s.nextDouble();
-							b2=s.nextDouble();
+							redAlt=s.nextDouble();
+							greenAlt=s.nextDouble();
+							blueAlt=s.nextDouble();
 
 						}
 					}
@@ -215,16 +216,16 @@ public class Scene {
 
 						}
 					}
-					thing.add(new Floor(new Color(r1,g1,b1),new Color (r2,g2,b2),floorY,new Color(rS,gS,bS)));
+					thing.add(new Floor(new Color(red,green,blue),new Color (redAlt,greenAlt,blueAlt),floorY,new Color(rS,gS,bS)));
 				   // editColors();
 				}
 				if(ts.equalsIgnoreCase("light")){
 					if(s.hasNext()){
 						SCenter=s.next();
 						if(SCenter.equalsIgnoreCase("center")){
-							xp1=s.nextDouble();
-							yp1=s.nextDouble();
-							zp1=s.nextDouble();
+							pointX=s.nextDouble();
+							pointY=s.nextDouble();
+							pointZ=s.nextDouble();
 						}
 					}
 					if(s.hasNext()){
@@ -233,13 +234,13 @@ public class Scene {
 							rad=s.nextDouble();
 						}
 					}
-					lights.add(new RTLight(new Point(xp1,yp1,zp1),rad,new Color( 1,.75,.75),new Color(0,0,0)));
+					lights.add(new RTLight(new Point(pointX,pointY,pointZ),rad,new Color( 1,.75,.75),new Color(0,0,0)));
 				   // editColors();
 				}
 			}
 
 		}catch(InputMismatchException e){
-			System.out.println(cnt+" "+SCenter+" "+ SRadius+" "+SColor+" "+floorHeight+" "+floorWidth+" "+color1+" "+color2+" "+specular+" "+temp+" "+xp1+" "+yp1+" "+zp1+" "+r1+" "+g1+" "+b1+" "+r2+" "+g2+" "+b2+" "+rS+" "+bS+" "+gS+" "+rad+" "+floorY+" "+floorX  );
+			System.out.println(cnt+" "+SCenter+" "+ SRadius+" "+SColor+" "+floorHeight+" "+floorWidth+" "+color1+" "+color2+" "+specular+" "+temp+" "+pointX+" "+pointY+" "+pointZ+" "+red+" "+green+" "+blue+" "+redAlt+" "+greenAlt+" "+blueAlt+" "+rS+" "+bS+" "+gS+" "+rad+" "+floorY+" "+floorX  );
 		}catch(IOException e){
 			System.out.println(e+" error in scene.ssf");
 		}
