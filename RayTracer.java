@@ -35,7 +35,8 @@ public class RayTracer {
 		imageWidth = width;
 		imageHeight = heigth;
 		image = new byte[imageWidth * imageHeight * 3];
-		eye = new Point(0, .3, -4.2);//use 0,0,-6 for the internet file, use for the other0, .3, -4.2
+		// eye = new Point(0, .3, -4.2);//use 0,0,-6 for the internet file, use for the other0, .3, -4.2
+		eye = new Point(0, 1, -10);//use 0,0,-6 for the internet file, use for the other0, .3, -4.2
 		isFinished=new boolean[10];
 		for(int cnt=0;cnt<isFinished.length;cnt++){//sets all values in isFinished to false.
 			isFinished[cnt]=false;
