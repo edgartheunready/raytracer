@@ -17,7 +17,7 @@ public class RayTracer {
 	private double distWeight;
 	private boolean threadStatus[];
 	private int antiAliasingFactor; //2, 4, 8, etc
-	private int numThreads = 2;
+	private int numThreads = 5;
 
 	public RayTracer(int width, int height, String filename, double topAspect, double sideAspect,int antiAliasingFactor,String inputFile) {
 		this.filename=filename;
@@ -74,12 +74,12 @@ public class RayTracer {
 		}
 	}
 	private Color getPixel(int row, int column,int AArow,int AAcolumn){//this method takes in the co-ordinates for one pixel, renders it, and then returns it.
-	  System.out.println("-------");
-	  System.out.println(row);
-	  System.out.println(AArow);
-	  System.out.println(column);
-	  System.out.println(AAcolumn);
-	  System.out.println("------------");
+//	  System.out.println("-------");
+//	  System.out.println(row);
+//	  System.out.println(AArow);
+//	  System.out.println(column);
+//	  System.out.println(AAcolumn);
+//	  System.out.println("------------");
 		double red, green, blue;
 		double dist,lightAngle,lightStrength;
 		Color curcolor = new Color(0,0,0);
@@ -201,8 +201,7 @@ public class RayTracer {
 		      allDone = status && allDone;
 		    }
 			}catch(Exception e){
-				//System.out.println(e);
-				//this program throws alot of illegatMonitorStateExceptions so i've decided to comment out the println to speed things up.
+				System.err.println(e);
 			}
 		}
 		System.out.println("all of the created threads are done");
