@@ -24,11 +24,10 @@ public class Sky extends Thing {
 	}
 	
 	public Intersection getIntersection(Point start, Point end) {//gets a sky intersection
-		double distance = 60;
-		double X = start.getX() * (1 - distance) + end.getX() * distance;//still need to encorporate vectors into this
-		double Y = start.getY() * (1 - distance) + end.getY() * distance;
-		double Z = start.getZ() * (1 - distance) + end.getZ() * distance;
-		return new Intersection(distance, new Point(X, Y, Z), this);
+		double X = start.getX() * (1 - MAX) + end.getX() * MAX;//still need to encorporate vectors into this
+		double Y = start.getY() * (1 - MAX) + end.getY() * MAX;
+		double Z = start.getZ() * (1 - MAX) + end.getZ() * MAX;
+		return new Intersection(MAX, new Point(X, Y, Z), this);
 	}
 
 	public Sky(Color color, final double MAX) {
