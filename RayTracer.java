@@ -18,22 +18,18 @@ public class RayTracer {
 	private boolean isFinished[];
 	private int AAF;
 
-	public RayTracer(int width, int heigth, String filename, double topAspect, double sideAspect,int AAF,String inputFile) {
+	public RayTracer(int width, int height, String filename, double topAspect, double sideAspect,int AAF,String inputFile) {
 		this.filename=filename;
 		this.AAF=AAF;
 		this.inputFile=inputFile;
-		
-		if(topAspect==-1&&sideAspect==-1){
-			scene = new Scene(4.0, 3.0, 60.0,inputFile);
-			//scene=new Scene(4, 3, 60.0);
-		}
-		else{
-			scene=new Scene((double)topAspect, (double)sideAspect, 60.0,inputFile);
-			//scene=new Scene((double)topAspect, (double)sideAspect, 60.0);
-		}
+//	  i found that using larger numbers for the aspect ratio moves things back. i also noticed that there are white areas in the rendered image. i believe those are bugs.	
+//		scene = new Scene(4, 3, 60.0,inputFile);
+		scene=new Scene(32, 18, 60.0,inputFile);
+//		scene=new Scene(topAspect, sideAspect, 60.0,inputFile);
+		//scene=new Scene((double)topAspect, (double)sideAspect, 60.0);
 		distWeight=.4;//use .1 for lots of spheres(about 30 spheres or so), use .3 for less spheres like around 3 or 4. when reading in from a file use 38
 		imageWidth = width;
-		imageHeight = heigth;
+		imageHeight = height;
 		image = new byte[imageWidth * imageHeight * 3];
 		// eye = new Point(0, .3, -4.2);//use 0,0,-6 for the internet file, use for the other0, .3, -4.2
 		eye = new Point(0, 1, -10);//use 0,0,-6 for the internet file, use for the other0, .3, -4.2
