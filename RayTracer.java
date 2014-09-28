@@ -15,8 +15,9 @@ public class RayTracer {
 	private Scene scene;
 	private String filename;
 	private double distWeight;
-	private boolean isFinished[];
+	private boolean threadStatus[];
 	private int antiAliasingFactor; //2, 4, 8, etc
+	private int numThreads = 2;
 
 	public RayTracer(int width, int height, String filename, double topAspect, double sideAspect,int antiAliasingFactor,String inputFile) {
 		this.filename=filename;
@@ -33,9 +34,9 @@ public class RayTracer {
 		image = new byte[imageWidth * imageHeight * 3];
 		// eye = new Point(0, .3, -4.2);//use 0,0,-6 for the internet file, use for the other0, .3, -4.2
 		eye = new Point(0, 1, -10);//use 0,0,-6 for the internet file, use for the other0, .3, -4.2
-		isFinished=new boolean[10];
-		for(int cnt=0;cnt<isFinished.length;cnt++){//sets all values in isFinished to false.
-			isFinished[cnt]=false;
+		threadStatus=new boolean[numThreads];
+		for(int cnt=0;cnt<threadStatus.length;cnt++){//sets all values in isFinished to false.
+			threadStatus[cnt]=false;
 		}
 	}
 	
@@ -67,12 +68,18 @@ public class RayTracer {
 		return  color;
 	}
 	public void createImage(){//this method creates 10 threads which i use to render my image. The main reason that I added threads was to fully utilize my dual core cpu. With ten threads this program could fully use up to 10 different processors fully.
-		for(int i=0;i<isFinished.length;i++){
-			if(i==0)(new Thread(new RTRunnable(this,0, imageHeight/isFinished.length,i))).start();
-			(new Thread(new RTRunnable(this,(imageHeight/isFinished.length)*i, (imageHeight/isFinished.length)*(i+1),i))).start();
+		for(int i=0;i<threadStatus.length;i++){
+			if(i==0)(new Thread(new RTRunnable(this,0, imageHeight/threadStatus.length,i))).start();
+			(new Thread(new RTRunnable(this,(imageHeight/threadStatus.length)*i, (imageHeight/threadStatus.length)*(i+1),i))).start();
 		}
 	}
 	private Color getPixel(int row, int column,int AArow,int AAcolumn){//this method takes in the co-ordinates for one pixel, renders it, and then returns it.
+	  System.out.println("-------");
+	  System.out.println(row);
+	  System.out.println(AArow);
+	  System.out.println(column);
+	  System.out.println(AAcolumn);
+	  System.out.println("------------");
 		double red, green, blue;
 		double dist,lightAngle,lightStrength;
 		Color curcolor = new Color(0,0,0);
@@ -136,7 +143,7 @@ public class RayTracer {
 		return pixel;
 	}	
 	
-	public void  threadPixel(int startRow, int endRow,int isFinishedArrayPlace){//this method contains all the loops to render all of the pixels, and calls all the needed methods.
+	public void  threadPixel(int startRow, int endRow,int threadId){//this method contains all the loops to render all of the pixels, and calls all the needed methods.
 		double red=0;
 		double green=0;
 		double blue=0;
@@ -176,16 +183,23 @@ public class RayTracer {
 					
 				}
 			}
-		isFinished[isFinishedArrayPlace]=true;
-		System.out.println("thread "+isFinishedArrayPlace+" of "+isFinished.length+" is done");
+		threadStatus[threadId]=true;
+		System.out.println("thread "+threadId+" of "+threadStatus.length+" is done");
 	}
 	
 	public void waitForThreadsToFinish(Thread main){//this method allows the other threads that I just created to finish their jobs, not exactly the most efficient way to do this, but it works.
-		
-		while(isFinished[0]!=true||isFinished[1]!=true||isFinished[2]!=true||isFinished[3]!=true||isFinished[4]!=true||isFinished[5]!=true||isFinished[6]!=true||isFinished[7]!=true||isFinished[8]!=true||isFinished[9]!=true){
+		boolean allDone = true;
+	  for(boolean status : threadStatus){
+		  allDone = status && allDone;
+		}
+	  
+		while(!allDone){
 			try{
 				Thread.sleep( 1000);
-				//System.out.println("well, here i am awake for a second");
+				allDone = true;
+		    for(boolean status : threadStatus){
+		      allDone = status && allDone;
+		    }
 			}catch(Exception e){
 				//System.out.println(e);
 				//this program throws alot of illegatMonitorStateExceptions so i've decided to comment out the println to speed things up.
