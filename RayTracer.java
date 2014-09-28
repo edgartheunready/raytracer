@@ -88,14 +88,14 @@ public class RayTracer {
 				ArrayList<RTLight> vlights =scene.getVisibleLights(temp.getPoint());
 				
 				for(RTLight cnt: vlights){
-				Point vector=temp.getPoint().getUnitVector(cnt.getCenter());
-				dist=temp.getPoint().getDistance(cnt.getCenter());
-				lightAngle=temp.getThing().getNormal(temp.getPoint()).dotProduct(vector);
-				lightStrength=(lightAngle/dist);
-				curcolor.addTo(calcDiffuse(temp));//.multiply(lightStrength)
-				curcolor.addTo(calcSpecular(temp, eye,0.0));//i just changed this from vector to temp.getPt
-				curcolor=curcolor.divide(temp.getDistance()*distWeight);
-			}
+  				Point vector=temp.getPoint().getUnitVector(cnt.getCenter());
+  				dist=temp.getPoint().getDistance(cnt.getCenter());
+  				lightAngle=temp.getThing().getNormal(temp.getPoint()).dotProduct(vector);
+  				lightStrength=(lightAngle/dist);
+  				curcolor.addTo(calcDiffuse(temp));//.multiply(lightStrength)
+  				curcolor.addTo(calcSpecular(temp, eye,0.0));//i just changed this from vector to temp.getPt
+  				curcolor=curcolor.divide(temp.getDistance()*distWeight);
+			  }
 		}    
 		
 		return curcolor;
@@ -143,7 +143,7 @@ public class RayTracer {
 		Color curcolor = new Color(0,0,0);
 		for (int row=startRow; row< endRow; row++) {
 			for (int column = 0; column < imageWidth; column = column+1){
-
+			    //TODO: this can be made faster. should be done in 2 passes instead of 1. pass 1 = get all pixels. pass 2 = run anti-aliasing filter on image.
 					for(int AAFRow=0;AAFRow < antiAliasingFactor;AAFRow++){//these next two for loops are used to add the anti=aliasing. 
 						for(int AAFColumn=0;AAFColumn < antiAliasingFactor;AAFColumn++){// AAF is the anti-aliasing factor
 							curcolor=getPixel(row, column,AAFRow,AAFColumn);
@@ -204,7 +204,7 @@ public class RayTracer {
 				System.err.println("the best command line arguements are : 1440 900 filename 6 3.75 : at least it is for me since my screen resolution is 1440*900");
 				return;
 			} 
-			else{
+			else {
 				int width=800;
 				int height=600;
 				String filenameinput="scene.ssf",filename="ray";
@@ -235,10 +235,11 @@ public class RayTracer {
 					sideAspect=Double.parseDouble(args[4]);
 					filenameinput=args[5];
 				}
+				
 				RayTracer rt = new RayTracer(width, height, filename, topAspect, sideAspect,AAF,filenameinput);
 				rt.createImage();
 				rt.waitForThreadsToFinish(main);
 				rt.print();
-			}
+		}
   }
 }
