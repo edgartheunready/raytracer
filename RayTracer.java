@@ -13,16 +13,16 @@ public class RayTracer {
 	private int imageWidth,imageHeight;
 	private Point eye;
 	private Scene scene;
-	private String filename,inputFile;
+	private String filename;
 	private double distWeight;
 	private boolean isFinished[];
-	private int AAF;
+	private int antiAliasingFactor; //2, 4, 8, etc
 
-	public RayTracer(int width, int height, String filename, double topAspect, double sideAspect,int AAF,String inputFile) {
+	public RayTracer(int width, int height, String filename, double topAspect, double sideAspect,int antiAliasingFactor,String inputFile) {
 		this.filename=filename;
-		this.AAF=AAF;
-		this.inputFile=inputFile;
-//	  i found that using larger numbers for the aspect ratio moves things back. i also noticed that there are white areas in the rendered image. i believe those are bugs.	
+		this.antiAliasingFactor=antiAliasingFactor;
+
+		//	  i found that using larger numbers for the aspect ratio moves things back. i also noticed that there are white areas in the rendered image. i believe those are bugs.	
 //		scene = new Scene(4, 3, 60.0,inputFile);
 		scene=new Scene(32, 18, 60.0,inputFile);
 //		scene=new Scene(topAspect, sideAspect, 60.0,inputFile);
@@ -53,8 +53,6 @@ public class RayTracer {
 			distance=first.getDistance(cnt.getCenter());
 			lightAngle=((normal.dotProduct(unitDir))/distance);
 			pixel.addTo(diffuse.multiply(lightAngle));//JMH
-
-
 		}
 
 		return pixel;
@@ -118,8 +116,8 @@ public class RayTracer {
 			
 		}
 	}
+	
 	public Color raytrace(Point start, Point end, double distance){//one of two methods used to render the specular lighting
-
 		Color specular, specularWeight;
 		if(distance>scene.MAX_DEPTH)return new Color(0,0,0);//i did have a x nine infront of the max
 		Intersection intersect=scene.trace(start,end);
@@ -146,19 +144,18 @@ public class RayTracer {
 		for (int row=startRow; row< endRow; row++) {
 			for (int column = 0; column < imageWidth; column = column+1){
 
-					for(int AAFRow=0;AAFRow < AAF;AAFRow++){//these next two for loops are used to add the anti=aliasing. 
-						for(int AAFColumn=0;AAFColumn < AAF;AAFColumn++){// AAF is the anti-aliasing factor
+					for(int AAFRow=0;AAFRow < antiAliasingFactor;AAFRow++){//these next two for loops are used to add the anti=aliasing. 
+						for(int AAFColumn=0;AAFColumn < antiAliasingFactor;AAFColumn++){// AAF is the anti-aliasing factor
 							curcolor=getPixel(row, column,AAFRow,AAFColumn);
 							red=red+curcolor.getRed();//adds up all the color values from the super-sampled pixels 
 							green=green+curcolor.getGreen();
 							blue=blue+curcolor.getBlue();
 						}
 					}
-					red=red/(AAF*AAF);//gets the average of the super-sampled pixels.
-					green=green/(AAF*AAF);
-					blue=blue/(AAF*AAF);
+					red=red/(antiAliasingFactor*antiAliasingFactor);//gets the average of the super-sampled pixels.
+					green=green/(antiAliasingFactor*antiAliasingFactor);
+					blue=blue/(antiAliasingFactor*antiAliasingFactor);
 
-				
 					//the red, green, and blue values can get out of hand so this help to keep them in line.
 					if(red>1)red=1;
 					if(green>1)green=1;
@@ -187,7 +184,7 @@ public class RayTracer {
 		
 		while(isFinished[0]!=true||isFinished[1]!=true||isFinished[2]!=true||isFinished[3]!=true||isFinished[4]!=true||isFinished[5]!=true||isFinished[6]!=true||isFinished[7]!=true||isFinished[8]!=true||isFinished[9]!=true){
 			try{
-				main.sleep( 1000);
+				Thread.sleep( 1000);
 				//System.out.println("well, here i am awake for a second");
 			}catch(Exception e){
 				//System.out.println(e);
@@ -243,5 +240,5 @@ public class RayTracer {
 				rt.waitForThreadsToFinish(main);
 				rt.print();
 			}
-		}
-	}
+  }
+}
