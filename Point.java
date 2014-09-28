@@ -89,9 +89,7 @@ public class Point {
 		double tx = x * point.x;
 		double ty = y * point.y;
 		double tz = z * point.z;
-		double answer = tx + ty + tz;
-		
-		return answer;
+		return tx + ty + tz;
 	}
 
 	public static void main(String[] args) {//this main was used in a lab, and is not to be used for the raytracer assignment
