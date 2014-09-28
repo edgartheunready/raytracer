@@ -9,7 +9,7 @@ public class Scene {
 	private double scene_height;
 	private ArrayList <Thing> thing;
 	private ArrayList <RTLight>lights;
-	public final double MAX_DEPTH;
+	public static double MAX_DEPTH;
 	private String filename;
 	
 	public ArrayList<Thing> getList(){
@@ -18,7 +18,7 @@ public class Scene {
 	public Scene(double width, double height, double MAX_DEPTH, String filename){
 		this.scene_width = width;
 		this.scene_height = height;
-		this.MAX_DEPTH=MAX_DEPTH;		
+		Scene.MAX_DEPTH=MAX_DEPTH;		
 		this.thing=new ArrayList <Thing>();
 		this.lights=new ArrayList<RTLight>();
 		this.filename=filename;
@@ -63,25 +63,24 @@ public class Scene {
 	}
 	public Intersection trace(Point start, Point end) {//finds the nearest intersection with the light rays
 		double curDist, closeDist;
-		Intersection cur, closest;
-		closest= new Intersection(60+1, null, null);
-		for(Thing temp:thing){
-			cur = temp.getIntersection(start, end);
-			curDist = cur.getDistance();
-			closeDist = closest.getDistance();
+		Intersection closestIntersection= new Intersection(60+1, null, null);
+		for(Thing thing:thing){
+		  Intersection thingIntersection = thing.getIntersection(start, end);
+			curDist = thingIntersection.getDistance();
+			closeDist = closestIntersection.getDistance();
 			if (curDist < closeDist) {
-				closest = cur;
+				closestIntersection = thingIntersection;
 			}
 		}
-		for(Thing temp:lights){
-			cur = temp.getIntersection(start, end);
-			curDist = cur.getDistance();
-			closeDist = closest.getDistance();
+		for(Thing light:lights){
+		  Intersection thingIntersection = light.getIntersection(start, end);
+			curDist = thingIntersection.getDistance();
+			closeDist = closestIntersection.getDistance();
 			if (curDist < closeDist) {
-				closest = cur;
+				closestIntersection = thingIntersection;
 			}
 		}
-		return closest;
+		return closestIntersection;
 	}
 
 	public Point get3DCoordinate(int row, int col, int width, int height) {//maps pixels to co-ordinates
