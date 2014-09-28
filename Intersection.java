@@ -10,18 +10,15 @@ public class Intersection {
 	}
 
 	public Thing getThing() {
-		Thing curThing = thingHit;
-		return curThing;
+		return thingHit;
 	}
 
 	public Point getIntersectionPoint() {
-		Point point = placeHit;
-		return point;
+		return placeHit;
 	}
 
 	public double getDistance() {
-		double dist = distance;
-		return dist;
+		return distance;
 	}
 
 	public Intersection(double distance, Point placeHit, Thing thingHit) {
