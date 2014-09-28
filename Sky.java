@@ -25,13 +25,10 @@ public class Sky extends Thing {
 	
 	public Intersection getIntersection(Point start, Point end) {//gets a sky intersection
 		double distance = 60;
-		if (distance > MIN) {
-			double X = start.getX() * (1 - distance) + end.getX() * distance;//still need to encorporate vectors into this
-			double Y = start.getY() * (1 - distance) + end.getY() * distance;
-			double Z = start.getZ() * (1 - distance) + end.getZ() * distance;
-			return new Intersection(distance, new Point(X, Y, Z), this);
-		}
-		return new Intersection(60 + 1, null, null);
+		double X = start.getX() * (1 - distance) + end.getX() * distance;//still need to encorporate vectors into this
+		double Y = start.getY() * (1 - distance) + end.getY() * distance;
+		double Z = start.getZ() * (1 - distance) + end.getZ() * distance;
+		return new Intersection(distance, new Point(X, Y, Z), this);
 	}
 
 	public Sky(Color color, final double MAX) {
